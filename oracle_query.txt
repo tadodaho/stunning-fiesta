@@ -1,0 +1,33 @@
+WITH result
+AS (
+	SELECT d.name department
+		,e.name employee
+		,e.salary
+	FROM employee e
+	LEFT JOIN department d ON e.department_id = d.id
+	)
+
+SELECT department
+	,employee
+	,salary
+FROM (
+	SELECT *
+	FROM result
+	WHERE department = 'IT'
+	ORDER BY salary DESC
+	)
+WHERE rownum <= 3
+
+UNION ALL
+
+SELECT department
+	,employee
+	,salary
+FROM (
+	SELECT *
+	FROM result
+	WHERE department = 'Sales'
+	ORDER BY salary DESC
+	)
+WHERE rownum <= 3
+
